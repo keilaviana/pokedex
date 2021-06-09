@@ -2,7 +2,7 @@
 
 const fetchPokemon = () => {
     //função para pegar id dinamico do pokemon
-    const getPokemonUrl = `https://pokeapi.co/api/v2/pokemon/${id}
+    const getPokemonUrl = id => `https://pokeapi.co/api/v2/pokemon/${id}
     `
 
     const pokemonPromises = []
@@ -14,7 +14,15 @@ const fetchPokemon = () => {
     //garante que todos os promises sejam feitos em paralelo
     Promise.all(pokemonPromises)
         .then(pokemons => {
-            console.log(pokemons)
+            // console.log(pokemons)
+
+            // reduzir o array em uma string (template html)
+            const lisPokemons = pokemons.reduce((accumulator, pokemon) => {
+                accumulator += `<li>${pokemon.name}<li>`
+                return accumulator
+            }, '')
+
+            console.log(lisPokemons)
         })
     // // função que faz requisições AJAX no browser
     // fetch(url)
